@@ -20,7 +20,7 @@
 
 .pokecard {
   display: flex;
-  background: rgba(0, 128, 0, 0.388);
+  background: rgba(106, 106, 106, 0.388);
   padding: 1em;
   border-radius: 1rem;
   position: relative;
@@ -65,7 +65,7 @@
 .pokecard-name {
   font-weight: 800;
   font-size: 1.5rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
 }
 
 .pokecard-types {
@@ -80,4 +80,19 @@
 
 .pokecard-types-pill + .pokecard-types-pill {
   margin-left: 8px;
+}
+
+.directory-load-more {
+  margin-top: 5rem;
+  display: flex;
+}
+
+.directory-load-more-btn {
+  font-size: 2rem;
+  padding: 1rem;
+  border-radius: $borderRadius;
+  border: none;
+  font-weight: 700;
+  background: rgb(35, 106, 164);
+  margin: 0 auto;
 }
