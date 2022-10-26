@@ -21,7 +21,7 @@ const App = () => {
           </form>
           <Directory />
         </main>
-        <footer>© Pokétrainer Clerget</footer>
+        <footer>{lang.en.footerText}</footer>
       </div>
     </div>
   );

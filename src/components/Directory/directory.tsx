@@ -7,7 +7,7 @@ const Directory = () => {
 
       <div id='pokegrid'>
         <div className='pokecard'>
-          <div className='pokecard-number'>#1</div>
+          <div className='pokecard-number'>#152</div>
           <div className='pokecard-image'>
             <img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png' />
           </div>
