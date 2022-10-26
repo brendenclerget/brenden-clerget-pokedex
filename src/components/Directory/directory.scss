@@ -1,24 +1,83 @@
 @use '../../styles/variables.scss' as *;
 
 .directory {
-  margin-top: 4rem;
+  margin-top: 3em;
+  padding: 1em;
+}
+
+.directory-header {
+  margin-bottom: 0;
+  text-align: center;
 }
 
 #pokegrid {
   display: grid;
-  gap: 1em;
-  justify-items: stretch;
+  gap: 1rem;
+  justify-items: center;
   align-items: stretch;
   color: $darkText;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
 }
 
 .pokecard {
   display: flex;
-  background: $bgColor;
-  border-radius: $borderRadius/2;
+  background: rgba(0, 128, 0, 0.388);
+  padding: 1em;
+  border-radius: 1rem;
   position: relative;
   overflow: hidden;
   flex-direction: column;
   align-items: center;
   transition: ease all 0.4s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.04),
+    0 16px 32px rgba(0, 0, 0, 0.04), 0 32px 64px rgba(0, 0, 0, 0.04);
+  transform: translatey(50px);
+}
+
+.pokecard-image img {
+  filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.2));
+  max-width: 100%;
+  margin-top: 0.5rem;
+}
+
+.pokecard-image:hover {
+  cursor: pointer;
+}
+
+.pokecard:hover .pokecard-image {
+  transform: scale(1.1);
+}
+
+.pokecard-image {
+  transition: ease all 0.4s;
+}
+
+.pokecard-number {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 8px;
+  background: $transparentBg;
+  z-index: 1;
+  border-radius: $borderRadius;
+}
+
+.pokecard-name {
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.pokecard-types {
+  display: flex;
+}
+
+.pokecard-types-pill {
+  background: $transparentBg;
+  padding: 3px 6px;
+  border-radius: $borderRadius;
+}
+
+.pokecard-types-pill + .pokecard-types-pill {
+  margin-left: 8px;
 }
