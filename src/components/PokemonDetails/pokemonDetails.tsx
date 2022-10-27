@@ -28,6 +28,8 @@ const PokemonDetails = ({
     useEffect(() => {
         setPokemonDetails(false);
         setPokemonSpecies(false);
+        setPokemonEvolution(false);
+        setPokemonEvolveChain([]);
         (async () => {
             await pokemonClient
                 .getPokemonByName(pokemonName)
@@ -132,14 +134,30 @@ const PokemonDetails = ({
                 <div className='pokemon-species'>
                     <h2>Evolution Chain</h2>
                     {pokemonEvolveChain.map((pokemonName, i) => (
-                        <h3 class='evolution-step' key={pokemonName}>
-                            {`${
-                                pokemonName.charAt(0).toUpperCase() +
-                                pokemonName.slice(1)
-                            } ${pokemonEvolveChain[i + 1] ? ' > ' : ''}`}
-                        </h3>
+                        <>
+                            <h3
+                                class='evolution-step clickable-pokemon'
+                                key={pokemonName}
+                                onClick={() => setSelectedPokemon(pokemonName)}
+                            >
+                                {`${
+                                    pokemonName.charAt(0).toUpperCase() +
+                                    pokemonName.slice(1)
+                                } `}
+                            </h3>
+                            <span>
+                                {pokemonEvolveChain[i + 1] ? ' > ' : ''}
+                            </span>
+                        </>
                     ))}
                 </div>
+
+                <button
+                    className='home-btn'
+                    onClick={() => setSelectedPokemon(false)}
+                >
+                    Back to Home
+                </button>
             </div>
         </div>
     ) : (
