@@ -1,4 +1,5 @@
 -TODO - Didn't complete tests, but vittest is installed
 -TODO - No history of searched pokemon
--TODO - Would need some backend services likely so that we're not just hitting the API and we could cache the results
--TODO - Convert some of the fetch() calls to use the poke-ts wrapper API library
+-TODO - Convert some of the fetch() calls to use the poke-ts wrapper API library ***
+
+*** Partially completed on pokemon details page
