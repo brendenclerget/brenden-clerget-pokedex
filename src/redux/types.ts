@@ -1,3 +1,3 @@
 export type FetchError = {
-  message: string;
+    message: string;
 };

@@ -1,44 +1,44 @@
 @use 'styles/variables.scss' as *;
 
 .App {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    width: 100%;
 }
 
 #wrapper {
-  margin: 0 auto;
-  text-align: left;
-  padding: 1em;
+    margin: 0 auto;
+    text-align: left;
+    padding: 1em;
 }
 
 .header-text {
-  max-width: min(400px, 90%);
-  margin: 0 auto;
-  text-align: center;
+    max-width: min(400px, 90%);
+    margin: 0 auto;
+    text-align: center;
 }
 
 #search {
-  margin-top: 2rem;
-  width: 100%;
-  margin-inline: auto;
-  max-width: min(25rem, 90%);
+    margin-top: 2rem;
+    width: 100%;
+    margin-inline: auto;
+    max-width: min(25rem, 90%);
 }
 
 .search-input {
-  width: 100%;
-  border-radius: $borderRadius;
-  border: 1px solid rgb(179, 179, 179);
-  padding: 1rem;
-  font-size: 1.5rem;
+    width: 100%;
+    border-radius: $borderRadius;
+    border: 1px solid rgb(179, 179, 179);
+    padding: 1rem;
+    font-size: 1.5rem;
 }
 
 footer {
-  margin-top: 5rem;
+    margin-top: 5rem;
 }
 
 .text-center {
-  text-align: center;
+    text-align: center;
 }

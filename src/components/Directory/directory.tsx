@@ -1,63 +1,76 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import './directory.scss';
+import LoadMoreButton from './loadMoreButton';
+import Pokecard from './pokecard';
 
 interface DirectoryProps {
-  setFetchMore: (setFetchMore: any) => void;
-  setPokemonToFetch: (setPokemonToFetch: any) => void;
-  pokemonToFetch: number;
+    setFetchMore: (setFetchMore: any) => void;
+    setPokemonToFetch: (setPokemonToFetch: any) => void;
+    pokemonToFetch: number;
+    loadedPokemonCount: number;
 }
 
 const Directory = ({
-  setFetchMore,
-  setPokemonToFetch,
-  pokemonToFetch,
+    setFetchMore,
+    setPokemonToFetch,
+    pokemonToFetch,
+    loadedPokemonCount,
 }: DirectoryProps) => {
-  const pokemonData = useSelector(
-    (state: RootState) => state.pokemon.pokemonData
-  );
+    const pokemonData = useSelector(
+        (state: RootState) => state.pokemon.pokemonData
+    );
+    const pokemonList = useSelector((state: RootState) => state.pokemon.list);
+    const [pokecards, setPokecards] = useState([]);
+    const isLoading =
+        useSelector((state: RootState) => state.pokemon.status) === 'loading';
 
-  const onFetchClick = () => {
-    setFetchMore(true);
-    setPokemonToFetch(pokemonToFetch + 10);
-  };
+    const onFetchClick = () => {
+        setFetchMore(true);
+        setPokemonToFetch(pokemonToFetch + 10);
+    };
 
-  return (
-    <div className='directory'>
-      <h2 className='directory-header'>Browse Pokémon</h2>
+    useEffect(() => {
+        if (
+            pokemonList.length >= loadedPokemonCount &&
+            pokemonList[loadedPokemonCount - 1] !== undefined
+        ) {
+            if (
+                pokemonData.hasOwnProperty(pokemonList[loadedPokemonCount - 1])
+            ) {
+                const pokecardsClone = [...pokecards];
+                for (let i = pokecards.length; i < pokemonToFetch; i++) {
+                    const pokemonName = pokemonList[i];
 
-      <div id='pokegrid'>
-        {pokemonData.map((pokemon) => (
-          <div key={pokemon.id} className='pokecard'>
-            <div className='pokecard-number'>#{pokemon.id}</div>
-            <div className='pokecard-image'>
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-              />
-            </div>
-            <div className='pokecard-name'>
-              {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-            </div>
-            <div className='pokecard-types'>
-              {pokemon.types.map(({ type }) => (
-                <div className='pokecard-types-pill'>
-                  {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+                    pokecardsClone.push(
+                        <Pokecard
+                            key={i + 1}
+                            pokemon={pokemonData[pokemonName]}
+                        />
+                    );
+                }
+                setPokecards(pokecardsClone);
+                console.log(pokecardsClone, 'pokecardsClone');
+            }
+        }
+    }, [pokemonList, pokemonData, loadedPokemonCount]);
+
+    return (
+        pokemonList.length > 0 && (
+            <div className='directory'>
+                <h2 className='directory-header'>Browse Pokémon</h2>
+
+                <div id='pokegrid'>{pokecards.map((pokecard) => pokecard)}</div>
+                <div className='directory-load-more'>
+                    <LoadMoreButton
+                        onClick={onFetchClick}
+                        loading={isLoading}
+                    />
                 </div>
-              ))}
             </div>
-          </div>
-        ))}
-      </div>
-      <div className='directory-load-more'>
-        <button
-          className='directory-load-more-btn'
-          onClick={() => onFetchClick()}
-        >
-          Click To Load More Pokemon
-        </button>
-      </div>
-    </div>
-  );
+        )
+    );
 };
 
 export default Directory;

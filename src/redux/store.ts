@@ -4,11 +4,11 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import pokemonReducer from './pokemon/pokemonSlice';
 
 const rootReducer = combineReducers({
-  pokemon: pokemonReducer,
+    pokemon: pokemonReducer,
 });
 
 export const store = configureStore({
-  reducer: rootReducer,
+    reducer: rootReducer,
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
