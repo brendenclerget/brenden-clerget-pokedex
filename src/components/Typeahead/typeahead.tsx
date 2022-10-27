@@ -1,16 +1,24 @@
 import { NamedAPIResource } from 'pokenode-ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './typeahead.scss';
 
 interface TypeaheadProps {
     suggestions: Array<NamedAPIResource>;
+    setSelectedPokemon: (pokemonName: string) => void;
 }
 
-const Typeahead = ({ suggestions }: TypeaheadProps) => {
+const Typeahead = ({ suggestions, setSelectedPokemon }: TypeaheadProps) => {
     const [active, setActive] = useState(0);
     const [filtered, setFiltered] = useState([]);
     const [isShow, setIsShow] = useState(false);
     const [input, setInput] = useState('');
+    const [pokemonValue, setPokemonValue] = useState('');
+
+    useEffect(() => {
+        if (pokemonValue !== undefined && pokemonValue !== '') {
+            setSelectedPokemon(pokemonValue);
+        }
+    }, [pokemonValue]);
 
     const onChange = (e) => {
         const input = e.currentTarget.value;
@@ -28,6 +36,7 @@ const Typeahead = ({ suggestions }: TypeaheadProps) => {
         setFiltered([]);
         setIsShow(false);
         setInput(e.currentTarget.innerText);
+        setPokemonValue(filtered[active]);
     };
     const onKeyDown = (e) => {
         if (e.keyCode === 13) {
@@ -36,6 +45,7 @@ const Typeahead = ({ suggestions }: TypeaheadProps) => {
             setActive(0);
             setIsShow(false);
             setInput(filtered[active]);
+            setPokemonValue(filtered[active]);
         } else if (e.keyCode === 38) {
             // up arrow
             return active === 0 ? null : setActive(active - 1);
@@ -59,7 +69,7 @@ const Typeahead = ({ suggestions }: TypeaheadProps) => {
                             return (
                                 <li
                                     className={className}
-                                    key={suggestion}
+                                    key={suggestion + 'li'}
                                     onClick={onClick}
                                 >
                                     {suggestion}
@@ -88,6 +98,7 @@ const Typeahead = ({ suggestions }: TypeaheadProps) => {
                     onChange={onChange}
                     onKeyDown={onKeyDown}
                     value={input}
+                    autoComplete='off'
                 />
                 {renderAutocomplete()}
             </div>

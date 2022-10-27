@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './App.scss';
 import Directory from './components/Directory/directory';
+import PokemonDetails from './components/PokemonDetails/pokemonDetails';
 import Typeahead from './components/Typeahead/typeahead';
 import { lang } from './constants/lang';
 import { pokemonToFetchOnLoad } from './constants/settings';
@@ -14,7 +15,7 @@ const App = () => {
     const [loadedPokemon, setLoadedPokemon] = useState(0);
     const [fetchMore, setFetchMore] = useState(true);
     const [pokemonToFetch, setPokemonToFetch] = useState(pokemonToFetchOnLoad);
-    const [selectedPokemon, setSelectedPokemon] = useState(0);
+    const [selectedPokemon, setSelectedPokemon] = useState(false);
     const pokemonData = useSelector(
         (state: RootState) => state.pokemon.pokemonData
     );
@@ -24,6 +25,8 @@ const App = () => {
     useEffect(() => {
         dispatch(fetchPokemonList());
     }, []);
+
+    useEffect(() => {}, [selectedPokemon]);
 
     useEffect(() => {
         if (pokemonList.length > 0 && fetchMore) {
@@ -47,14 +50,25 @@ const App = () => {
                 </header>
                 <main>
                     <form id='search'>
-                        <Typeahead suggestions={pokemonList} />
+                        <Typeahead
+                            setSelectedPokemon={setSelectedPokemon}
+                            suggestions={pokemonList}
+                        />
                     </form>
-                    <Directory
-                        setFetchMore={setFetchMore}
-                        setPokemonToFetch={setPokemonToFetch}
-                        pokemonToFetch={pokemonToFetch}
-                        loadedPokemonCount={loadedPokemon}
-                    />
+                    {selectedPokemon ? (
+                        <PokemonDetails
+                            setSelectedPokemon={setSelectedPokemon}
+                            pokemonName={selectedPokemon}
+                        />
+                    ) : (
+                        <Directory
+                            setFetchMore={setFetchMore}
+                            setPokemonToFetch={setPokemonToFetch}
+                            pokemonToFetch={pokemonToFetch}
+                            loadedPokemonCount={loadedPokemon}
+                            setSelectedPokemon={setSelectedPokemon}
+                        />
+                    )}
                 </main>
                 <footer>{lang.en.footerText}</footer>
             </div>

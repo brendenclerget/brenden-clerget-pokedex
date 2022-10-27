@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PokeballLoader from '../PokeballLoader/pokeballLoader';
 
 interface LoadMoreButtonProps {
@@ -7,21 +7,16 @@ interface LoadMoreButtonProps {
 }
 const LoadMoreButton = ({ onClick, loading = false }: LoadMoreButtonProps) => {
     const [isLoading, setIsLoading] = useState(false);
-    function delay(delay: number) {
+    const delay = (delay: number) => {
         return new Promise((res) => setTimeout(res, delay));
-    }
+    };
     const clickHandler = async () => {
         setIsLoading(true);
         await delay(500);
         onClick();
         await delay(500);
         setIsLoading(false);
-        //
     };
-
-    useEffect(() => {
-        console.log(isLoading);
-    }, [isLoading]);
 
     return (
         <>

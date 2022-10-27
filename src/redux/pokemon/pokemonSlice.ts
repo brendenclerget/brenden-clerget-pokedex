@@ -8,6 +8,7 @@ type PokemonState = {
     error: String | null;
     list: Array<String>;
     pokemonData: any;
+    activePokemon: String | null;
 };
 
 const initialState: PokemonState = {
@@ -15,6 +16,7 @@ const initialState: PokemonState = {
     error: null,
     status: 'idle',
     pokemonData: {},
+    activePokemon: null,
 };
 
 export const pokemonSlice = createSlice({

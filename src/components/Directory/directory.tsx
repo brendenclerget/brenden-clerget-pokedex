@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 import './directory.scss';
 import LoadMoreButton from './loadMoreButton';
@@ -8,6 +9,7 @@ import Pokecard from './pokecard';
 interface DirectoryProps {
     setFetchMore: (setFetchMore: any) => void;
     setPokemonToFetch: (setPokemonToFetch: any) => void;
+    setSelectedPokemon: (selectedPokemon: string) => void;
     pokemonToFetch: number;
     loadedPokemonCount: number;
 }
@@ -17,10 +19,12 @@ const Directory = ({
     setPokemonToFetch,
     pokemonToFetch,
     loadedPokemonCount,
+    setSelectedPokemon,
 }: DirectoryProps) => {
     const pokemonData = useSelector(
         (state: RootState) => state.pokemon.pokemonData
     );
+    const navigate = useNavigate();
     const pokemonList = useSelector((state: RootState) => state.pokemon.list);
     const [pokecards, setPokecards] = useState([]);
     const isLoading =
@@ -29,6 +33,10 @@ const Directory = ({
     const onFetchClick = () => {
         setFetchMore(true);
         setPokemonToFetch(pokemonToFetch + 10);
+    };
+
+    const onCardClick = (pokemonName: string) => {
+        setSelectedPokemon(pokemonName);
     };
 
     useEffect(() => {
@@ -47,11 +55,13 @@ const Directory = ({
                         <Pokecard
                             key={i + 1}
                             pokemon={pokemonData[pokemonName]}
+                            onClick={() => {
+                                onCardClick(pokemonName);
+                            }}
                         />
                     );
                 }
                 setPokecards(pokecardsClone);
-                console.log(pokecardsClone, 'pokecardsClone');
             }
         }
     }, [pokemonList, pokemonData, loadedPokemonCount]);

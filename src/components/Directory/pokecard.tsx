@@ -1,11 +1,12 @@
 interface PokeCardProps {
     pokemon: any;
+    onClick?: () => void;
 }
 
-const Pokecard = ({ pokemon }: PokeCardProps) => {
+const Pokecard = ({ pokemon, onClick = () => {} }: PokeCardProps) => {
     return (
         pokemon && (
-            <div key={pokemon.id} className='pokecard'>
+            <div key={pokemon.id} className='pokecard' onClick={onClick}>
                 <div className='pokecard-number'>#{pokemon.id}</div>
                 <div className='pokecard-image'>
                     <img
@@ -16,6 +17,7 @@ const Pokecard = ({ pokemon }: PokeCardProps) => {
                     {pokemon.name.charAt(0).toUpperCase() +
                         pokemon.name.slice(1)}
                 </div>
+
                 <div className='pokecard-types'>
                     {pokemon.types.map((pokemonType) => (
                         <div className='pokecard-types-pill'>

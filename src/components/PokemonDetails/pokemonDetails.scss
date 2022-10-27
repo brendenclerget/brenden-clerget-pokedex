@@ -1,32 +1,17 @@
 @use '../../styles/variables.scss' as *;
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 
-.directory {
-    margin-top: 3em;
-}
-
-.directory-header {
-    margin-bottom: 0;
-    text-align: center;
-}
-
-#pokegrid {
+.details-grid {
     display: grid;
     gap: 1rem;
-    justify-items: center;
+    justify-items: left;
     align-items: stretch;
     color: $darkText;
-    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    grid-template-columns: 1fr 1fr;
 }
 
 .pokecard {
     display: flex;
     background: rgba(106, 106, 106, 0.388);
-    padding: 1em;
     border-radius: 1rem;
     position: relative;
     overflow: hidden;
@@ -88,17 +73,15 @@
     margin-left: 8px;
 }
 
-.directory-load-more {
-    margin-top: 5rem;
-    display: flex;
+.loader-wrapper {
+    margin-top: 4rem;
 }
 
-.directory-load-more-btn {
-    font-size: 2rem;
-    padding: 1rem;
-    border-radius: $borderRadius;
-    border: none;
-    font-weight: 700;
-    background: rgb(35, 106, 164);
-    margin: 0 auto;
+.pokemon-details {
+    margin-top: 2rem;
+}
+
+.evolution-step {
+    display: inline-block;
+    margin-top: 0;
 }
