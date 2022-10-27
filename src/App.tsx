@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './App.scss';
 import Directory from './components/Directory/directory';
+import Typeahead from './components/Typeahead/typeahead';
 import { lang } from './constants/lang';
 import { pokemonToFetchOnLoad } from './constants/settings';
 import { useAppDispatch } from './hooks';
@@ -13,6 +14,7 @@ const App = () => {
     const [loadedPokemon, setLoadedPokemon] = useState(0);
     const [fetchMore, setFetchMore] = useState(true);
     const [pokemonToFetch, setPokemonToFetch] = useState(pokemonToFetchOnLoad);
+    const [selectedPokemon, setSelectedPokemon] = useState(0);
     const pokemonData = useSelector(
         (state: RootState) => state.pokemon.pokemonData
     );
@@ -45,12 +47,7 @@ const App = () => {
                 </header>
                 <main>
                     <form id='search'>
-                        <input
-                            className='search-input'
-                            type='text'
-                            id='search_value'
-                            name='searchValue'
-                        ></input>
+                        <Typeahead suggestions={pokemonList} />
                     </form>
                     <Directory
                         setFetchMore={setFetchMore}
